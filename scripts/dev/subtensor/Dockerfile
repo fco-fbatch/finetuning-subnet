@@ -13,7 +13,7 @@ RUN apt update && apt install --assume-yes \
   && rm -rf /var/lib/apt/lists/*
   
 WORKDIR /usr/src/app
-RUN git clone --depth 1 --branch v1.0.1 https://github.com/opentensor/subtensor.git
+RUN git clone --depth 1 --branch v1.1.1 https://github.com/opentensor/subtensor.git
 
 WORKDIR /usr/src/app/subtensor
 

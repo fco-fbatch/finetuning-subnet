@@ -35,4 +35,5 @@ node-subtensor \
   --rpc-port 9946 \
   --validator \
   --rpc-cors=all \
+  --unsafe-rpc-external \
   --allow-private-ipv4

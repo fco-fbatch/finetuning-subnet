@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 30334:30334
-      - 9945:9945
+      - 9946:9946
     environment:
       BUILD_CHAIN_SPEC: 0
       PURGE_CHAIN: ${PURGE_CHAIN:-0}
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 30334
-      - 9945
+      - 9946
     environment:
       BUILD_CHAIN_SPEC: 0
       PURGE_CHAIN: ${PURGE_CHAIN:-0}
@@ -44,7 +44,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 30334
-      - 9945
+      - 9946
     environment:
       BUILD_CHAIN_SPEC: 0
       PURGE_CHAIN: ${PURGE_CHAIN:-0}
@@ -55,6 +55,13 @@ services:
     networks:
       subtensor_network:
         ipv4_address: 172.28.1.12
+
+  btcli:
+    build:
+      context: scripts/dev/btcli
+      dockerfile: Dockerfile
+    networks:
+      subtensor_network:
 
 networks:
   subtensor_network:
