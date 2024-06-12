@@ -22,26 +22,17 @@ fi
 
 if [[ $PURGE_CHAIN == "1" ]]; then
     echo "*** Purging previous state..."
-    node-subtensor purge-chain -y --base-path "/tmp/${NODE_NAME}" --chain=/etc/subtensor/local.json >/dev/null 2>&1
+    node-subtensor purge-chain -y --base-path "/var/lib/subtensor/chain-state/${NODE_NAME}" --chain=/etc/subtensor/local.json >/dev/null 2>&1
     echo "*** Previous chainstate purged"
-fi
-
-if [ -n "${BOOTNODES}" ]; then
-  BOOTNODES_ARG="--bootnodes ${BOOTNODES}"
-else
-  BOOTNODES_ARG=""
 fi
 
 echo "*** Starting node..."
 node-subtensor \
-  --base-path "/tmp/${NODE_NAME}" \
+  --base-path "/var/lib/subtensor/chain-state/${NODE_NAME}" \
   --chain=/etc/subtensor/local.json \
   "--${NODE_NAME}" \
   --port 30334 \
   --rpc-port 9946 \
   --validator \
   --rpc-cors=all \
-  --allow-private-ipv4 \
-#   --discover-local \
-  ${BOOTNODES_ARG} \
-  "$@"
+  --allow-private-ipv4

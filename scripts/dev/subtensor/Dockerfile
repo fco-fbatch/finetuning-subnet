@@ -23,9 +23,7 @@ RUN scripts/init.sh && \
 FROM ubuntu:22.04
 
 COPY --from=builder /usr/src/app/subtensor/target/release/node-subtensor /usr/bin/
-COPY scripts/dev/start_subtensor_node.sh /usr/local/bin/start_subtensor_node.sh
-RUN chmod +x /usr/local/bin/start_subtensor_node.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/start_subtensor_node.sh"]
-
-# CMD [ "start_subtensor_node.sh" ]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
