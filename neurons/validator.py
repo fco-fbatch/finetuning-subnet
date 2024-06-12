@@ -502,6 +502,7 @@ class Validator:
         # Update self.metagraph
         await self.try_sync_metagraph(ttl=60)
 
+        # Decide on which competition we are gonna evaluate.
         competition_parameters = constants.COMPETITION_SCHEDULE[self.global_step % len(constants.COMPETITION_SCHEDULE)]
         
         # Add uids with newly updated models to the upcoming batch of evaluations.

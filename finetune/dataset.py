@@ -221,6 +221,8 @@ class CortexSubsetLoader(IterableDataset):
                  retry_limit=10, page_size=100, running: typing.Optional[bool]=False,
                  cortex_project=constants.CORTEX_WANDB_PROJECT,
                  cortex_type=constants.CORTEX_WANDB_TYPE):
+        
+        # wandb.Api is used for querying the server.
         api = wandb.Api(timeout=100)
 
         filters = [

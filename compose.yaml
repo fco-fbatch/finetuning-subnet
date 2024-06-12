@@ -1,0 +1,84 @@
+# To change the build spec or purge chain edit this -> BUILD_CHAIN_SPEC=0 PURGE_CHAIN=0 docker-compose up
+# Subtensor local node preset names are: alice, bob, charlie, dave, eve, ferdie. Anything else fails.
+
+services:
+  subtensor-node-alice:
+    build:
+      context: .
+      dockerfile: Dockerfile.subtensor
+    ports:
+      - 30334
+      - 9945
+    environment:
+      - BUILD_CHAIN_SPEC=0
+      - PURGE_CHAIN=0
+      - NODE_NAME=alice
+    volumes:
+      - ./scripts/dev/spec/:/etc/subtensor
+    networks:
+      subtensor_network:
+        ipv4_address: 172.28.1.10
+
+  subtensor-node-bob:
+    build:
+      context: .
+      dockerfile: Dockerfile.subtensor
+    ports:
+      - 30334
+      - 9945
+    environment:
+      - BUILD_CHAIN_SPEC=0
+      - PURGE_CHAIN=0
+      - NODE_NAME=bob
+      - BOOTNODES=/ip4/172.28.1.10/tcp/30334/p2p/
+    volumes:
+      - ./scripts/dev/spec/:/etc/subtensor
+    networks:
+      subtensor_network:
+        ipv4_address: 172.28.1.11
+
+  subtensor-node-eve:
+    build:
+      context: .
+      dockerfile: Dockerfile.subtensor
+    ports:
+      - 30334
+      - 9945
+    environment:
+      - BUILD_CHAIN_SPEC=0
+      - PURGE_CHAIN=0
+      - NODE_NAME=eve
+      - BOOTNODES=/ip4/172.28.1.10/tcp/30334/p2p/
+    volumes:
+      - ./scripts/dev/spec/:/etc/subtensor
+    networks:
+      subtensor_network:
+        ipv4_address: 172.28.1.12
+
+networks:
+  subtensor_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+  # miner:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - ../.:/usr/src
+  #   ports:
+  #     - "8008:8008"
+  #   environment:
+  #     - PORT=8008
+  #   command:
+  #     [
+  #       "watchmedo",
+  #       "auto-restart",
+  #       "--recursive",
+  #       "--patterns=*.py",
+  #       "--",
+  #       "python",
+  #       "/usr/src/app/neurons/miner.py",
+  #     ]
